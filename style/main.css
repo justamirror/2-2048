@@ -177,7 +177,7 @@ hr {
       font-weight: bold;
       height: 60px;
       line-height: 60px;
-      margin-top: 222px; }
+      margin-top: 150px; }
     .game-container .game-message .lower {
       display: block;
       margin-top: 59px; }
@@ -610,7 +610,7 @@ hr {
         font-weight: bold;
         height: 60px;
         line-height: 60px;
-        margin-top: 222px; }
+        margin-top: 150px; }
       .game-container .game-message .lower {
         display: block;
         margin-top: 59px; }
@@ -748,11 +748,148 @@ hr {
 
   .tile .tile-inner {
     font-size: 35px; }
-
+.titlePadding{
+  padding-top:50px !important;
+}
+.heading {
+  padding-bottom:0 !important;
+}
   .game-message p {
     font-size: 30px !important;
     height: 30px !important;
     line-height: 30px !important;
-    margin-top: 90px !important; }
+    margin-top: 50px !important; }
   .game-message .lower {
     margin-top: 30px !important; } }
+
+
+
+.winningTileValueDiv {
+    position: relative;
+    display: inline-block;
+    background: #bbada0;
+    padding: 15px 25px;
+    font-size: 25px;
+    height: 25px;
+    line-height: 47px;
+    font-weight: bold;
+    border-radius: 3px;
+    color: white;
+    margin-top: 8px;
+    text-align: center;
+}
+.winningTileValueDiv:after {
+    content: "Start at";
+}
+.winningTileValueDiv:after {
+    position: absolute;
+    width: 100%;
+    top: 10px;
+    left: 0;
+    text-transform: uppercase;
+    font-size: 13px;
+    line-height: 13px;
+    text-align: center;
+    color: #eee4da;
+}
+
+
+.increaseDiv {
+    position: relative;
+    display: inline-block;
+    background: #bbada0;
+    padding: 15px 25px;
+    font-size: 25px;
+    height: 25px;
+    line-height: 47px;
+    font-weight: bold;
+    border-radius: 3px;
+    color: white;
+    margin-top: 8px;
+    text-align: center;
+}
+.increaseDiv:after {
+    content: "Increase speed";
+}
+.increaseDiv:after {
+    position: absolute;
+    width: 100%;
+    top: 10px;
+    left: 0;
+    text-transform: uppercase;
+    font-size: 13px;
+    line-height: 13px;
+    text-align: center;
+    color: #eee4da;
+}
+
+.titlePadding {
+  padding-top:126px
+}
+.heading {
+  padding-bottom: 50px;
+}
+
+#upgrades, #pointUpgrades {
+  margin-top:20px;
+  padding: 10px;
+  border-radius: 4px;
+  background: #bbada0;
+  color: white;
+}
+
+.small {
+  font-size: 20px !important;
+  font-weight: normal !important;
+  margin-top: 20px !important;
+}
+
+@keyframes enabled {
+  from {background-color: #d9c6b5;}
+  to {background-color: #8f7a66;}
+}
+
+#pongNotif {
+  margin-top:20px;
+  padding: 10px;
+  border-radius: 4px;
+  background: #d34a51;
+  color: white;
+  display:none;
+}
+
+button {
+  font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif !important;
+  font-size: 20px;
+  background: #6be869;
+  color: #221b1b;
+  cursor: pointer;
+  margin:0;
+  padding:0;
+  border:0;
+  padding: 5px;
+  padding-right: 10px;
+  padding-left: 10px;
+  margin-left: 5px;
+  border-radius: 5px;
+}
+
+.disabled {
+  font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif !important;
+  font-size: 20px;
+  background: #d2797e;
+  color: #ffffff;
+  cursor: default !important;
+  margin:0;
+  padding:0;
+  border:0;
+  padding: 5px;
+  padding-right: 10px;
+  padding-left: 10px;
+  margin-left: 5px;
+  border-radius: 5px;
+}
+
+#b {
+  display:none;
+}

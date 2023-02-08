@@ -16,7 +16,7 @@ HTMLActuator.prototype.actuate = function (grid, metadata) {
     grid.cells.forEach(function (column) {
       column.forEach(function (cell) {
         if (cell) {
-          self.addTile(cell);
+          self.addTile(grid, cell);
         }
       });
     });
@@ -46,7 +46,7 @@ HTMLActuator.prototype.clearContainer = function (container) {
   }
 };
 
-HTMLActuator.prototype.addTile = function (tile) {
+HTMLActuator.prototype.addTile = function (grid, tile) {
   var self = this;
 
   var wrapper   = document.createElement("div");
@@ -76,7 +76,7 @@ HTMLActuator.prototype.addTile = function (tile) {
 
     // Render the tiles that merged
     tile.mergedFrom.forEach(function (merged) {
-      self.addTile(merged);
+      self.addTile(grid, merged);
     });
   } else {
     classes.push("tile-new");
@@ -86,6 +86,15 @@ HTMLActuator.prototype.addTile = function (tile) {
   // Add the inner part of the tile to the wrapper
   wrapper.appendChild(inner);
 
+  wrapper.onclick = function () {
+    if (window.breaking) {
+      grid.removeTile(tile)
+      window.breaking = false;
+      document.querySelector("#pongNotif").style.display = 'none';
+      wrapper.remove();
+      breakerBEEP.play()
+    }
+  }
   // Put the tile on the board
   this.tileContainer.appendChild(wrapper);
 };
@@ -127,9 +136,17 @@ HTMLActuator.prototype.updateBestScore = function (bestScore) {
 HTMLActuator.prototype.message = function (won) {
   var type    = won ? "game-won" : "game-over";
   var message = won ? "You win!" : "Game over!";
+  var message2 = won ? 'Scroll up to upgrade.' : "";
 
   this.messageContainer.classList.add(type);
   this.messageContainer.getElementsByTagName("p")[0].textContent = message;
+  this.messageContainer.getElementsByTagName("p")[1].textContent = message2;
+
+  if (won) {
+    document.querySelectorAll('input[type="checkbox"]').forEach(function (e) {e.style.display = "inline-block"});
+    document.querySelector('.retry-button').className = 'retry-button disabled';
+    window.UNCHECKFFS()
+  }
 };
 
 HTMLActuator.prototype.clearMessage = function () {

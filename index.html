@@ -1,42 +1,57 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
-  <title>2048</title>
+  <title>2^2048</title>
 
   <link href="style/main.css" rel="stylesheet" type="text/css">
   <link rel="shortcut icon" href="favicon.ico">
   <link rel="apple-touch-icon" href="meta/apple-touch-icon.png">
-  <link rel="apple-touch-startup-image" href="meta/apple-touch-startup-image-640x1096.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"> <!-- iPhone 5+ -->
-  <link rel="apple-touch-startup-image" href="meta/apple-touch-startup-image-640x920.png"  media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)"> <!-- iPhone, retina -->
+  <link rel="apple-touch-startup-image" href="meta/apple-touch-startup-image-640x1096.png"
+    media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"> <!-- iPhone 5+ -->
+  <link rel="apple-touch-startup-image" href="meta/apple-touch-startup-image-640x920.png"
+    media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)">
+  <!-- iPhone, retina -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="viewport"
+    content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+  <script src='js/onread.js'></script>
+  <div id="b"></div>
 </head>
+
 <body>
   <div class="container">
     <div class="heading">
-      <h1 class="title">2048</h1>
+      <h1 class="title">2<sup id="winningTile">2048</sup></h1>
+      <div class="titlePadding"></div>
       <div class="scores-container">
         <div class="score-container">0</div>
         <div class="best-container">0</div>
+        <div class="winningTileValueDiv"><input type="range" min="3" max="11" value="11" id="winningTileValue"></div>
+        <div class="increaseDiv"><input type="range" min="1" max="3" value="2" id="increaseV"></div>
       </div>
     </div>
 
     <div class="above-game">
-      <p class="game-intro">Join the numbers and get to the <strong>2048 tile!</strong></p>
+      <p class="game-intro">Join the numbers and get to the <strong><t id="winningTile2">2048</t> tile!</strong></p>
       <a class="restart-button">New Game</a>
     </div>
 
+    <div id="upgrades">Upgrades:<br><info title="Randomly spawns a asterisk tile that can be combined with any other tile to mulitply the tile by 2.">Asterisk</info> - <asterisk level="0">0</asterisk> <info title="Mulitplies all points by the booster value, including Quantum Timelines. Board effect is increasing the chances of an 8.">Booster Juice</info> - <boosterjuice level="0">0</boosterjuice> <info title="Plays a brick breaker game. Upgrading increase point gain speed. Board effect is increasing the chances you can optionally break a tile.">Brick Breaker</info> - <brickbreaker level="5">0</brickbreaker> <info title="Upgrading increases shipment quality (Higher pointed blocks.) No board effect.">Factory shipments</info> - <factoryshipments level="7">0</factoryshipments> <info title="Combines factory shipments to generate points. Upgrading combines faster. No board effect.">Point factory</info> - <pointfactory level="7">0</pointfactory> <info title="I smell cookies... Connect to an alternate universe, where cookies have replaced atoms, and process those cookies into points. This won't have consequences. Board effect is spawning a cookie tile that consumes other tiles for extra points.">Portal</info> - <portal level="9">0</portal> <info title="Creates a split in the timeline every upgrade. This will add points to the point counter randomly, also affected by upgrades like Asterisk and Pong. No board effect.">Quantum Improbability</info> - <quan level="9">0</quan> </div><br><div id="pointUpgrades"></div>
+
+    <div id="pongNotif">Select a tile to destroy it, or just make a move to skip it.</div>
+    
     <div class="game-container">
       <div class="game-message">
         <p></p>
+        <p class='small'></p>
         <div class="lower">
-	        <a class="keep-playing-button">Keep going</a>
-          <a class="retry-button">Try again</a>
+          <a class="retry-button">Ascend</a>
         </div>
       </div>
 
@@ -73,15 +88,16 @@
     </div>
 
     <p class="game-explanation">
-      <strong class="important">How to play:</strong> Use your <strong>arrow keys</strong> to move the tiles. When two tiles with the same number touch, they <strong>merge into one!</strong>
+      <strong class="important">How to play:</strong> Use your <strong>arrow keys</strong> to move the tiles. When two
+      tiles with the same number touch, they <strong>merge into one!</strong><br><br>
+      <i><b>Note:</b></i> Hover on upgrade names to view function.
     </p>
     <hr>
     <p>
-    <strong class="important">Note:</strong> This site is the official version of 2048. You can play it on your phone via <a href="http://git.io/2048">http://git.io/2048.</a> All other apps or sites are derivatives or fakes, and should be used with caution.
-    </p>
-    <hr>
-    <p>
-    Created by <a href="http://gabrielecirulli.com" target="_blank">Gabriele Cirulli.</a> Based on <a href="https://itunes.apple.com/us/app/1024!/id823499224" target="_blank">1024 by Veewo Studio</a> and conceptually similar to <a href="http://asherv.com/threes/" target="_blank">Threes by Asher Vollmer.</a>
+      Original created by <a href="http://gabrielecirulli.com" target="_blank">Gabriele Cirulli.</a> Based on <a
+        href="https://itunes.apple.com/us/app/1024!/id823499224" target="_blank">1024 by Veewo Studio</a> and
+      conceptually similar to <a href="http://asherv.com/threes/" target="_blank">Threes by Asher Vollmer.</a><br><br>
+      Two to the power of 2048 is made by <a href="https://replit.com/@JustA6/" target="_blank">JustA6</a>.
     </p>
   </div>
 
@@ -94,6 +110,9 @@
   <script src="js/tile.js"></script>
   <script src="js/local_storage_manager.js"></script>
   <script src="js/game_manager.js"></script>
+  <script src="js/inserted.js"></script>
+  <script src="js/inserted2.js"></script>
   <script src="js/application.js"></script>
 </body>
+
 </html>

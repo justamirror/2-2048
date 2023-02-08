@@ -85,6 +85,25 @@ Grid.prototype.cellContent = function (cell) {
   }
 };
 
+Grid.prototype.scramble = function () {
+  let cells = [];
+  this.cells.forEach(ca => {
+    for (let item of ca) {
+      cells.push(item)
+    }
+  });
+  this.cells = this.empty();
+  for (let cell of cells) {
+    if (cell !== null) {
+      cell.x = Math.floor(Math.random()*this.size);
+      cell.y = Math.floor(Math.random()*this.size);
+      if (this.cellAvailable(cell)) {
+        this.insertTile(cell);
+      }
+    }
+  }
+}
+
 // Inserts a tile at its position
 Grid.prototype.insertTile = function (tile) {
   this.cells[tile.x][tile.y] = tile;

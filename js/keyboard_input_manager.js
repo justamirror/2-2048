@@ -69,9 +69,8 @@ KeyboardInputManager.prototype.listen = function () {
   });
 
   // Respond to button presses
-  this.bindButtonPress(".retry-button", this.restart);
+  this.bindButtonPress(".retry-button", this.ascendOrRestart);
   this.bindButtonPress(".restart-button", this.restart);
-  this.bindButtonPress(".keep-playing-button", this.keepPlaying);
 
   // Respond to swipe events
   var touchStartClientX, touchStartClientY;
@@ -130,6 +129,12 @@ KeyboardInputManager.prototype.listen = function () {
 KeyboardInputManager.prototype.restart = function (event) {
   event.preventDefault();
   this.emit("restart");
+};
+
+KeyboardInputManager.prototype.ascendOrRestart = function (event) {
+  event.preventDefault();
+  document.querySelectorAll('input[type="checkbox"]').forEach(function (e) {e.style.display = "none"; e.checked = false});
+  this.emit("ascendOrRestart");
 };
 
 KeyboardInputManager.prototype.keepPlaying = function (event) {
