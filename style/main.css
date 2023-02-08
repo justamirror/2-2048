@@ -893,3 +893,23 @@ button {
 #b {
   display:none;
 }
+
+body {
+  overflow-x: hidden;
+}
+
+#beta {
+  position: absolute;
+  top:0;
+  left:0;
+  width:100vw;
+  height: 40px;
+  background-color:red;
+  text-align:center;
+  padding-top:10px;
+  color:white;
+}
+
+#beta a {
+  color:black;
+}

@@ -6,6 +6,10 @@
   let $ = function(...args) {
     return document.querySelector(...args)
   }
+
+  if (location.origin === 'https://2-2048.justa6.repl.co') {
+    $('#beta').style.display = '';
+  }
   document.querySelector('#upgrades').innerHTML += document.querySelector('#b').innerHTML;
   let pointUpgrades = {
     'scramble': [
