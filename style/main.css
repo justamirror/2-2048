@@ -913,3 +913,10 @@ body {
 #beta a {
   color:black;
 }
+
+#savemanage {
+  position: absolute;
+  z-index:100000;
+  top:5px;
+  right:5px;
+}

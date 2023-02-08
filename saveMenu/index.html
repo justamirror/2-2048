@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>2^2048 Save Manager</title>
+
+  <link href="../style/main.css" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport"
+    content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+
+  <script src="../js/local_storage_manager.js"></script>
+  <style>
+    body {
+      margin: 80px;
+    }
+  </style>
+</head>
+
+<body>
+<div id="u">
+  <h1><a href="../">2<sup>2048</sup></a> Save Manager</h1>
+  Load code: <input id="loadcode"></input> <button id="submit">Load</button><br>
+  Code: <div id="code"></div><br><br>
+  <div id="copied" style="display:none">Copied!!!!!</div>
+</div>
+
+<script>
+  (function () {
+    let storage = new LocalStorageManager().storage;
+    function saveLocal() {
+      console.log("Saving", storage);
+      return window.btoa(JSON.stringify(storage))
+    }
+    function loadLocal(code) {
+        try {
+            let dat = JSON.parse(window.atob(code));
+            console.log("Loading", dat);
+            for (let key of Object.keys(dat)) {
+                storage[key] = dat[key];
+            }
+    
+            return false
+        } catch (e) {
+            return e
+        }
+    }
+    
+    let codeDiv = document.getElementById('code');
+    let loadCodeDiv = document.getElementById('loadcode');
+    let COPIED = document.getElementById('copied');
+    let submit = document.getElementById('submit');
+    let toid = -1;
+
+    codeDiv.innerText = saveLocal();
+
+    codeDiv.onclick = function () {
+      clearTimeout(toid);
+      navigator.clipboard.writeText(codeDiv.innerText);
+      COPIED.style.display = '';
+      toid = setTimeout(function () {
+        COPIED.style.display = 'none'
+      }, 1000);
+    }
+
+    submit.onclick = function () {
+      codeDiv.innerText = loadCodeDiv.value;
+      loadLocal(loadCodeDiv.value);
+    }
+  })()
+</script>
+</body>
+
+</html>
