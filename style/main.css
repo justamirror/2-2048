@@ -917,6 +917,6 @@ body {
 #savemanage {
   position: absolute;
   z-index:100000;
-  top:5px;
-  right:5px;
+  top:10px;
+  right:10px;
 }
