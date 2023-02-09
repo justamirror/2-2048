@@ -34,6 +34,12 @@ window.gm = ((_gm) => {
   let READER = window.game.__________READY;
   let gm = window.game = new Proxy({
     score: _gm.score,
+    tile: function (position, value) {
+      // position.x
+      // position.y
+
+      return new Tile(position, value)
+    },
     upgrades: new Proxy(window.upgrades, {
       set: function(t, p, v) {
         if (t[p] === undefined) {

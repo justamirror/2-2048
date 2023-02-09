@@ -19,7 +19,15 @@
         game.grid.scramble();
         game.render();
       }
-    ]
+    ],
+    'scrape': [
+      'Scrape: Scrapes lower point cells.', 
+      25000, 
+      function () {
+        game.grid.scrape();
+        game.render();
+      }
+    ],
   };
 
   window._____DASH_TWENTY_TWO_JUST_USE_window_dot_game_DUMBHASH = pointUpgrades;

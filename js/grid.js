@@ -87,10 +87,8 @@ Grid.prototype.cellContent = function (cell) {
 
 Grid.prototype.scramble = function () {
   let cells = [];
-  this.cells.forEach(ca => {
-    for (let item of ca) {
-      cells.push(item)
-    }
+  this.eachCell(function (x, y, item) {
+    cells.push(item);
   });
   this.cells = this.empty();
   for (let cell of cells) {
@@ -100,6 +98,30 @@ Grid.prototype.scramble = function () {
       if (this.cellAvailable(cell)) {
         this.insertTile(cell);
       }
+    }
+  }
+}
+
+Grid.prototype.scrape = function () {
+  let cells = [];
+  let avg = 0;
+  let n = 0;
+  this.eachCell(function (x, y, item) {
+    if (item === null) {
+      return
+    }
+    if (!isNaN(item.value)) {
+      avg+=item.value;
+      n+=1;
+      cells.push(item);
+    }
+  });
+
+  let below = avg/n;
+
+  for (let cell of cells) {
+    if (cell.value < below) {
+      this.removeTile(cell)
     }
   }
 }
