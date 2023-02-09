@@ -238,8 +238,7 @@ if (!window.__paused) {
 }
 
 _gm.inputManager.on('move', function() {
-  let n = document.querySelector('#pongNotif').style.display = Math.random() < (0.1 * gm.upgrades.brickbreaker) ? 'block' : 'none';
-  window.breaking = n === 'block'
+  
 })
 
 

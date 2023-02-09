@@ -192,6 +192,7 @@ GameManager.prototype.move = function(direction) {
   this.prepareTiles();
 
   // Traverse the grid in the right direction and move tiles
+  let alreadyRAND = false;
   traversals.x.forEach(function(x) {
     traversals.y.forEach(function(y) {
       cell = { x: x, y: y };
@@ -203,6 +204,11 @@ GameManager.prototype.move = function(direction) {
 
         // Only one merger per row traversal?
         if (next && ((next.value === tile.value || [next.value, tile.value].includes('*') || [next.value, tile.value].includes('🍪'))) && !next.mergedFrom) {
+          if (!alreadyRAND) {
+            let n = document.querySelector('#pongNotif').style.display = Math.random() < (0.1 * game.upgrades.brickbreaker) ? 'block' : 'none';
+  window.breaking = n === 'block'
+            alreadyRAND = true;
+          }
           if (next.value === '*') {
             [next.value, tile.value] = [tile.value, next.value];
           }
@@ -235,6 +241,11 @@ GameManager.prototype.move = function(direction) {
           // The mighty [[this.winningTile]] tile
           if (merged.value === this.winningTile) self.won = true;
         } else {
+          if (!alreadyRAND && (Math.abs(tile.x-positions.farthest.x)+Math.abs(tile.y-positions.farthest.y))) {
+            let n = document.querySelector('#pongNotif').style.display = Math.random() < (0.1 * game.upgrades.brickbreaker) ? 'block' : 'none';
+  window.breaking = n === 'block'
+            alreadyRAND = true;
+          }
           self.moveTile(tile, positions.farthest);
         }
 
