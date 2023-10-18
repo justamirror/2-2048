@@ -7,19 +7,11 @@
     return document.querySelector(...args)
   }
 
-  if (location.origin === 'https://2-2048.justa6.repl.co') {
+  if (location.origin === 'https://2-2048.jamirror.repl.co') {
     $('#beta').style.display = '';
   }
   document.querySelector('#upgrades').innerHTML += document.querySelector('#b').innerHTML;
   let pointUpgrades = {
-    'scramble': [
-      'Scramble: Scramble the board', 
-      2000, 
-      function () {
-        game.grid.scramble();
-        game.render();
-      }
-    ],
     'scrape': [
       'Scrape: Scrapes lower point cells.', 
       25000, 
