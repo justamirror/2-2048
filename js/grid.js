@@ -111,7 +111,7 @@ Grid.prototype.scrape = function () {
       return
     }
     if (!isNaN(item.value)) {
-      avg+=item.value;
+      avg+=Math.log2(item.value);
       n+=1;
       cells.push(item);
     }
@@ -120,7 +120,7 @@ Grid.prototype.scrape = function () {
   let below = avg/n;
 
   for (let cell of cells) {
-    if (cell.value < below) {
+    if (Math.log2(cell.value) < below) {
       this.removeTile(cell)
     }
   }
