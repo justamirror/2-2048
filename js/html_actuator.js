@@ -56,6 +56,7 @@ HTMLActuator.prototype.addTile = function (grid, tile) {
 
   // We can't use classlist because it somehow glitches when replacing classes
   var classes = ["tile", "tile-" + tile.value, positionClass];
+  if (tile.colour !== 0) classes.push(`tile-colour-${tile.colour}`)
 
   if (tile.value > 2048) classes.push("tile-super");
 
@@ -83,6 +84,10 @@ HTMLActuator.prototype.addTile = function (grid, tile) {
     this.applyClasses(wrapper, classes);
   }
 
+  if (String(tile.value).length > 5) {
+    inner.style.fontSize = `${18 - ((String(tile.value).length - 5)/2)}px`
+  }
+
   // Add the inner part of the tile to the wrapper
   wrapper.appendChild(inner);
 
@@ -91,7 +96,9 @@ HTMLActuator.prototype.addTile = function (grid, tile) {
       grid.removeTile(tile)
       window.breaking = false;
       document.querySelector("#pongNotif").style.display = 'none';
-      wrapper.remove();
+      for (let elem of document.querySelectorAll('.'+(self.positionClass(tile)))) {
+        elem.remove()
+      }
       breakerBEEP.play()
     }
   }

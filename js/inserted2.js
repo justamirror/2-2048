@@ -31,7 +31,6 @@ window.gm = ((_gm) => {
     }
   }
   let gmEvents = new EventEmitter();
-  let READER = window.game.__________READY;
   let gm = window.game = new Proxy({
     score: _gm.score,
     tile: function (position, value) {
@@ -238,7 +237,7 @@ if (!window.__paused) {
 }
 
 _gm.inputManager.on('move', function() {
-  
+  gmEvents.emit('move');
 })
 
 
@@ -265,5 +264,4 @@ _gm.inputManager.on('restart', function() {
 _gm.inputManager.on('move', function(...args) {
   gmEvents.emit('move', ...args);
 })
-READER()
 })

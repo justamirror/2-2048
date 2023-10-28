@@ -2,7 +2,6 @@
 <html>
 
 <head>
-  <script>// location.href = "https://2-2048.jamirror.repl.co"</script>
   <meta charset="utf-8">
   <title>2^2048</title>
 
@@ -21,12 +20,14 @@
   <meta name="MobileOptimized" content="320">
   <meta name="viewport"
     content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
-  <script src='js/onread.js'></script>
+  <script src="js/themes.js"></script>
   <div id="b"></div>
 </head>
 
 <body>
+  <img src="black.svg" id="black" style="display:none">
   <div id='beta' style="display:none;">Beta version -- There may be bugs -- <a href="https://justamirror.github.io/2-2048/">Click here</a> if you are not fine with that fact.</div>
+  <a href="./whatsNew/" id='whatsnew'>What's new!</a>
   <a href="./saveMenu/" id='savemanage'>Go to save manager.</a>
   <div class="container">
     <div class="heading">
@@ -45,7 +46,7 @@
       <a class="restart-button">New Game</a>
     </div>
 
-    <div id="upgrades">Upgrades:<br><info title="Randomly spawns a asterisk tile that can be combined with any other tile to mulitply the tile by 2.">Asterisk</info> - <asterisk level="0">0</asterisk> <info title="Mulitplies all points by the booster value, including Quantum Timelines. Board effect is increasing the chances of an 8.">Booster Juice</info> - <boosterjuice level="0">0</boosterjuice> <info title="Plays a brick breaker game. Upgrading increase point gain speed. Board effect is increasing the chances you can optionally break a tile.">Brick Breaker</info> - <brickbreaker level="5">0</brickbreaker> <info title="Upgrading increases shipment quality (Higher pointed blocks.) No board effect.">Factory shipments</info> - <factoryshipments level="7">0</factoryshipments> <info title="Combines factory shipments to generate points. Upgrading combines faster. No board effect.">Point factory</info> - <pointfactory level="7">0</pointfactory> <info title="I smell cookies... Connect to an alternate universe, where cookies have replaced atoms, and process those cookies into points. This won't have consequences. Board effect is spawning a cookie tile that consumes other tiles for extra points.">Portal</info> - <portal level="9">0</portal> <info title="Creates a split in the timeline every upgrade. This will add points to the point counter randomly, also affected by upgrades like Asterisk and Pong. No board effect.">Quantum Improbability</info> - <quan level="9">0</quan> </div><br><div id="pointUpgrades"></div>
+    <div id="upgrades">Upgrades:<br><info title="Randomly spawns a asterisk tile that can be combined with any other tile to mulitply the tile by 2.">Asterisk</info> - <asterisk level="0">0</asterisk> <info title="Mulitplies all points by the booster value, including Quantum Timelines. Board effect is increasing the chances of an 8.">Booster Juice</info> - <boosterjuice level="0">0</boosterjuice> <info title="Plays a brick breaker game. Upgrading increase point gain speed. Board effect is increasing the chances you can optionally break a tile.">Brick Breaker</info> - <brickbreaker level="5">0</brickbreaker> <info title="Upgrading increases shipment quality (Higher pointed blocks.) No board effect.">Factory shipments</info> - <factoryshipments level="7">0</factoryshipments> <info title="Combines factory shipments to generate points. Upgrading combines faster. No board effect.">Point factory</info> - <pointfactory level="7">0</pointfactory> <info title="I smell cookies... Connect to an alternate universe, where cookies have replaced atoms, and process those cookies into points. This won't have consequences. Board effect is spawning a cookie tile that consumes other tiles for extra points.">Portal</info> - <portal level="9">0</portal> <info title="Creates a split in the timeline every upgrade. This will add points to the point counter randomly, also affected by upgrades like Asterisk and Pong. No board effect.">Quantum Improbability</info> - <quan level="9">0</quan> - <uno level="11">0</uno> <info title="Uno cards appear! Who ***KNOWS*** what will happen.">UNO!</info></div><br><div id="pointUpgrades"></div>
 
     <div id="pongNotif">Select a tile to destroy it, or just make a move to skip it.</div>
     
@@ -97,7 +98,7 @@
     </p>
     <hr>
     <p>
-      Original created by <a href="http://gabrielecirulli.com" target="_blank">Gabriele Cirulli.</a> Based on <a
+      Original created by <a href="http://gabrielecirulli.com" target="_blank">Gabriele Cirulli,</a> which was based on <a
         href="https://itunes.apple.com/us/app/1024!/id823499224" target="_blank">1024 by Veewo Studio</a> and
       conceptually similar to <a href="http://asherv.com/threes/" target="_blank">Threes by Asher Vollmer.</a><br><br>
       Two to the power of 2048 is made by <a href="https://replit.com/@jamirror/" target="_blank">jamirror</a>.

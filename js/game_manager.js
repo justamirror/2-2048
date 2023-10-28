@@ -1,3 +1,7 @@
+function mapZeroInfinityToZeroN(x, n) {
+  return (1-(1/(x+1))) * n
+}
+
 function GameManager(size, InputManager, Actuator, StorageManager) {
   this.size = size; // Size of the grid
   this.inputManager = new InputManager;
@@ -34,7 +38,7 @@ GameManager.prototype.ascend = function() {
   window.rounds++;
   this.storageManager.clearGameState();
   this.actuator.continueGame(); // Clear the game won/lost message
-  
+
   this.setup(this.score);
 };
 
@@ -50,7 +54,7 @@ GameManager.prototype.isGameTerminated = function() {
 };
 
 // Set up the game
-GameManager.prototype.setup = function(score) { 
+GameManager.prototype.setup = function(score) {
   var previousState = this.storageManager.getGameState();
 
   // Reload the game from a previous game if present
@@ -98,24 +102,34 @@ GameManager.prototype.addRandomTile = function() {
     if ((Math.random() * (Math.log(window.upgrades.asterisk + 1) * 2)) > 1) {
       value = '*';
     }
-    if ((Math.random() < 0.1*window.upgrades.boosterjuice)) {
+    if ((Math.random() < 0.1 * window.upgrades.boosterjuice)) {
       value = 8;
     }
-    if ((Math.random() < 0.1*window.upgrades.portal)) {
+    if ((Math.random() < 0.1 * window.upgrades.portal)) {
       value = '🍪';
     }
     if ((Math.random() < 0.3 & isNaN(value))) {
       value = Math.random() < 0.9 ? 2 : 4;
-      if ((Math.random() < 0.1*window.upgrades.boosterjuice)) {
+      if ((Math.random() < 0.1 * window.upgrades.boosterjuice)) {
         value = 8;
       }
     }
     if (value === 8 && Math.random() < 0.3) {
       value = 4;
     }
-    var tile = new Tile(this.grid.randomAvailableCell(), value);
+    if (window.upgrades.uno && Math.random() < mapZeroInfinityToZeroN(window.upgrades.uno, 1/3)) {
+      // Dem Uno Cards!!!
+      if (Math.random() < 1/3) {
+        // +4
+        value = "+4"
+      } else {
+        value = "";
+      }
+    }
+    var tile = new Tile(this.grid.randomAvailableCell(), value, (value === "+4" || value === "") ? 5 : (window.coloured ? (1 + Math.floor(Math.random() * 4)) : 0));
 
     this.grid.insertTile(tile);
+    (new LocalStorageManager()).storage.setItem('coloured', window.coloured ? window.coloured - 1 : 0);
   }
 };
 
@@ -203,10 +217,10 @@ GameManager.prototype.move = function(direction) {
         var next = self.grid.cellContent(positions.next);
 
         // Only one merger per row traversal?
-        if (next && ((next.value === tile.value || [next.value, tile.value].includes('*') || [next.value, tile.value].includes('🍪'))) && !next.mergedFrom) {
+        if (next && ((next.value === tile.value || [next.value, tile.value].includes('*') || [next.value, tile.value].includes('🍪') || (next.colour === tile.colour && ![next.colour, tile.colour].includes(0) /* 0 = default */) || [next.colour, tile.colour].includes(5) /* 5 = black, VERY SPECILA */)) && !next.mergedFrom) {
           if (!alreadyRAND) {
             let n = document.querySelector('#pongNotif').style.display = Math.random() < (0.1 * game.upgrades.brickbreaker) ? 'block' : 'none';
-  window.breaking = n === 'block'
+            window.breaking = n === 'block'
             alreadyRAND = true;
           }
           if (next.value === '*') {
@@ -214,22 +228,52 @@ GameManager.prototype.move = function(direction) {
           }
           let dep = 1;
           if (tile.value === '*') {
+            if (next.value === '🍪') {
+              // defuse the cookie
+              next.value = 1
+            }
             tile.value = next.value;
             dep = 4;
           }
-          if (tile.value === '🍪') {
-            if (next.value === '🍪') {
-              var merged = new Tile(positions.next, 2);
-              self.score += 2*(upgrades.boosterjuice+1) * Math.floor(window.REGVALUE/8) * Number(window.increaseSPEED);
+          let first = tile;
+          let second = next;
+          if (['', '+4'].includes(second.value)) {
+            let temp = first;
+            first = second;
+            second = first
+          }
+          if (second.value === '🍪') {
+            let temp = first;
+            first = second;
+            second = first
+          }
+          if (['', '+4'].includes(first.value)) { // uno change color. 
+            // REMINDER TO IMPL +4 EXTRA MECH
+
+            if (first.value === second.value) {
+              var merged = new Tile(positions.next, second.value, second.colour);
+              self.score += Math.floor((merged.value ? 4 : 0) / dep) * (upgrades.boosterjuice + 1) * Math.floor(window.REGVALUE / 8) * Number(window.increaseSPEED);
             } else {
-              self.score += next.value + Math.ceil((Math.random()*10)*next.value)*(upgrades.boosterjuice+1) * Math.floor(window.REGVALUE/8) * Number(window.increaseSPEED);
+              var merged = new Tile(positions.next, second.value, 1 + Math.floor(Math.random() * 4));
+              self.score += Math.floor((merged.value ? 4 : 0) / dep) * (upgrades.boosterjuice + 1) * Math.floor(window.REGVALUE / 8) * Number(window.increaseSPEED);
+            }
+            if ([first.value, second.value].includes('+4')) {
+              window.coloured = 4;
+              (new LocalStorageManager()).storage.setItem('coloured', 4)
+            }
+          } else if (first.value === '🍪') {
+            if (second.value === '🍪') {
+              var merged = new Tile(positions.next, '🍪');
+              self.score += 2 * (upgrades.boosterjuice + 1) * Math.floor(window.REGVALUE / 8) * Number(window.increaseSPEED);
+            } else {
+              self.score += next.value + Math.ceil((Math.random() * 10) * next.value) * (upgrades.boosterjuice + 1) * Math.floor(window.REGVALUE / 8) * Number(window.increaseSPEED);
               var merged = new Tile(positions.next, '🍪');
             }
           } else {
-            var merged = new Tile(positions.next, tile.value * 2);
-            self.score += Math.floor(merged.value/dep)*(upgrades.boosterjuice+1) * Math.floor(window.REGVALUE/8) * Number(window.increaseSPEED);
+            var merged = new Tile(positions.next, tile.value + next.value, [tile.colour, next.colour].includes(0) ? 0 : tile.colour === next.colour ? tile.colour : (1 + Math.floor(Math.random() * 4)));
+            self.score += Math.floor(merged.value / dep) * (upgrades.boosterjuice + 1) * Math.floor(window.REGVALUE / 8) * Number(window.increaseSPEED);
           }
-          
+
           merged.mergedFrom = [tile, next];
 
           self.grid.insertTile(merged);
@@ -239,11 +283,11 @@ GameManager.prototype.move = function(direction) {
           tile.updatePosition(positions.next);
 
           // The mighty [[this.winningTile]] tile
-          if (merged.value === this.winningTile) self.won = true;
+          if (merged.value >= this.winningTile) self.won = true;
         } else {
-          if (!alreadyRAND && (Math.abs(tile.x-positions.farthest.x)+Math.abs(tile.y-positions.farthest.y))) {
+          if (!alreadyRAND && (Math.abs(tile.x - positions.farthest.x) + Math.abs(tile.y - positions.farthest.y))) {
             let n = document.querySelector('#pongNotif').style.display = Math.random() < (0.1 * game.upgrades.brickbreaker) ? 'block' : 'none';
-  window.breaking = n === 'block'
+            window.breaking = n === 'block'
             alreadyRAND = true;
           }
           self.moveTile(tile, positions.farthest);
@@ -333,7 +377,7 @@ GameManager.prototype.tileMatchesAvailable = function() {
 
           var other = self.grid.cellContent(cell);
 
-          if (other && (other.value === tile.value || ([tile.value, other.value].includes('*')) || ([tile.value, other.value].includes('🍪')))) {
+          if (other && (other.value === tile.value || ([tile.value, other.value].includes('*')) || ([tile.value, other.value].includes('🍪')) || (other.colour === tile.colour && ![other.colour, tile.colour].includes(0) /* 0 = default 2048, no colour. */) || [other.colour, tile.colour].includes(5) /* 5 = black, very SPECIL DEAL */)) {
             return true; // These two tiles can be merged
           }
         }

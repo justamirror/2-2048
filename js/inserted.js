@@ -1,8 +1,9 @@
-
-
-
-
 (function() {
+  (()=>{
+    let storage = new LocalStorageManager;
+    storage = storage.storage;
+    window.coloured = Number(storage.getItem('coloured')) || 0;
+  })()
   let $ = function(...args) {
     return document.querySelector(...args)
   }
@@ -13,7 +14,7 @@
   document.querySelector('#upgrades').innerHTML += document.querySelector('#b').innerHTML;
   let pointUpgrades = {
     'scrape': [
-      'Scrape: Scrapes lower point cells.', 
+      'Scrape: Scrapes half of the lower point cells.', 
       25000, 
       function () {
         game.grid.scrape();
@@ -105,12 +106,14 @@
   window.REMOVEUPGRADES = function () {
     storage.removeItem("upgrades")
     Object.keys(upgrades).forEach(function(k) {
+      upgrades[k] = 0;
       if (upgradesDiv.querySelector(k) === null) {
         return
       }
-      upgrades[k] = 0;
       upgradesDiv.querySelector(k).innerText = '0';
-    })
+    });
+    window.coloured = 0;
+    (new LocalStorageManager()).storage.setItem('coloured', 0);
   }
   window.REMOVEROUNDS = function () {
     window.rounds = 0;

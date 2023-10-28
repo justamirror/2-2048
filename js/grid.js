@@ -26,7 +26,7 @@ Grid.prototype.fromState = function (state) {
 
     for (var y = 0; y < this.size; y++) {
       var tile = state[x][y];
-      row.push(tile ? new Tile(tile.position, tile.value) : null);
+      row.push(tile ? new Tile(tile.position, tile.value, tile.colour) : null);
     }
   }
 
@@ -118,8 +118,13 @@ Grid.prototype.scrape = function () {
   });
 
   let below = avg/n;
+  let needed = Math.floor(0.5 * n);
+  let cellsToSelect = new Set();
+  while (cellsToSelect.size < needed) {
+    cellsToSelect.add(cells[Math.floor(Math.random()*cells.length)])
+  }
 
-  for (let cell of cells) {
+  for (let cell of cellsToSelect) {
     if (Math.log2(cell.value) < below) {
       this.removeTile(cell)
     }

@@ -1,0 +1,28 @@
+html, body {
+  background: #1f0e00;
+  color: #ff7300;
+}
+.title {
+  color: #ff7300;
+}
+.score-container, .best-container, .winningTileValueDiv, .increaseDiv {
+  color: #1f0e00;
+  background: #ff7300
+}
+.score-addition {
+  color: rgba(193, 120, 47, 0.9) !important;
+}
+.score-container::after, .best-container::after, .winningTileValueDiv::after, .increaseDiv::after {
+  color: #1f0e00;
+}
+.restart-button {
+  background: #ff7300;
+  color: #1f0e00;
+}
+#upgrades, #pointUpgrades {
+  background: #ff7300;
+  color: #1f0e00;
+}
+a {
+  color: #ff5900
+}
