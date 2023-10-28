@@ -34,10 +34,14 @@
   }
   function apply(sheetName) {
     // Apply css style sheet based on url!!!!!!!!!
+    sheetName = encodeURIComponent(sheetName);
+    if (sheetName === '..') {
+      sheetName = ''
+    }
     if (location.hostname === "2-2048.jamirror.repl.co") {
-      sheetName = `/style/${sheetName}`
+      sheetName = `/style/${sheetName}.css`
     } else {
-      sheetName = `/2-2048/style/${sheetName}`
+      sheetName = `/2-2048/style/${sheetName}.css`
     }
     let sheets = document.styleSheets;
     let sheetIndex = sheets.length;
@@ -48,10 +52,13 @@
     document.head.appendChild(sheetLink);
     return sheetIndex;
   }
+  if (localStorage.theme !== undefined) {
+    return apply(localStorage.theme)
+  }
 
   if (between('Oct 1', 'Nov 1')) { // Themes for Halloween
-    apply('halloween.css');
+    apply('halloween');
   } else if (between('Dec 1', 'Jan 1 1')) { // Themes for Christmas
-    apply('christmas.css');
+    apply('christmas');
   }
 })()

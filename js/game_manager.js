@@ -1,5 +1,5 @@
 function mapZeroInfinityToZeroN(x, n) {
-  return (1-(1/(x+1))) * n
+  return (1 - (1 / (x + 1))) * n
 }
 
 function GameManager(size, InputManager, Actuator, StorageManager) {
@@ -117,9 +117,9 @@ GameManager.prototype.addRandomTile = function() {
     if (value === 8 && Math.random() < 0.3) {
       value = 4;
     }
-    if (window.upgrades.uno && Math.random() < mapZeroInfinityToZeroN(window.upgrades.uno, 1/3)) {
+    if (window.upgrades.uno && Math.random() < mapZeroInfinityToZeroN(window.upgrades.uno, 1 / 3)) {
       // Dem Uno Cards!!!
-      if (Math.random() < 1/3) {
+      if (Math.random() < 1 / 3) {
         // +4
         value = "+4"
       } else {
@@ -130,6 +130,7 @@ GameManager.prototype.addRandomTile = function() {
 
     this.grid.insertTile(tile);
     (new LocalStorageManager()).storage.setItem('coloured', window.coloured ? window.coloured - 1 : 0);
+    window.coloured = window.coloured ? window.coloured - 1 : 0;
   }
 };
 
