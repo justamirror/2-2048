@@ -241,12 +241,12 @@ GameManager.prototype.move = function(direction) {
           if (['', '+4'].includes(second.value)) {
             let temp = first;
             first = second;
-            second = first
+            second = temp;
           }
           if (second.value === '🍪') {
             let temp = first;
             first = second;
-            second = first
+            second = temp;
           }
           if (['', '+4'].includes(first.value)) { // uno change color. 
             // REMINDER TO IMPL +4 EXTRA MECH
