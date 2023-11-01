@@ -1,0 +1,13 @@
+html, body {
+  background-color: forestgreen;
+  color: #fff;
+}
+a {
+  color: #fff;
+}
+.titlePadding {
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background-image: url("../festive.svg");
+  background-size: contain;
+}

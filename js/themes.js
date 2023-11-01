@@ -33,15 +33,15 @@
     return normalize(dateA) <= now && normalize(dateB) >= now
   }
   function apply(sheetName) {
-    // Apply css style sheet based on url!!!!!!!!!
+    // Apply css style sheet and javascript based on url!!!!!!!!!
     sheetName = encodeURIComponent(sheetName);
     if (sheetName === '..') {
       sheetName = ''
     }
     if (location.hostname === "2-2048.jamirror.repl.co") {
-      sheetName = `/style/${sheetName}.css`
+      sheetName = `/themes/${sheetName}.css`
     } else {
-      sheetName = `/2-2048/style/${sheetName}.css`
+      sheetName = `/2-2048/themes/${sheetName}.css`
     }
     let sheets = document.styleSheets;
     let sheetIndex = sheets.length;
@@ -50,6 +50,11 @@
     sheetLink.setAttribute('type', 'text/css');
     sheetLink.setAttribute('href', sheetName);
     document.head.appendChild(sheetLink);
+    window.onload = function () {
+      let script = document.createElement('script');
+      script.setAttribute('src', sheetName.replace('.css', '.js'));
+      document.body.appendChild(script);
+    }
     return sheetIndex;
   }
   if (localStorage.theme !== undefined) {
