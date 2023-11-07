@@ -1051,3 +1051,26 @@
   left: 10px;
   top: 10px;
 }
+select {
+  font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif !important;
+  font-size: 20px;
+  background: #6be869;
+  color: #221b1b;
+  cursor: pointer;
+  margin:0;
+  padding:0;
+  border:0;
+  padding: 5px;
+  padding-right: 10px;
+  padding-left: 10px;
+  margin-left: 5px;
+  border-radius: 5px;
+}
+#themeSelectorDiv {
+  position: absolute;
+  top: 5px;
+  right: 200px;
+}
+#themeSelector {
+  text-align: center;
+}

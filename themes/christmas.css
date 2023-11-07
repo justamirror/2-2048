@@ -11,3 +11,14 @@ a {
   background-image: url("../festive.svg");
   background-size: contain;
 }
+.score-container, .best-container, .winningTileValueDiv, .increaseDiv, .restart-button {
+  background-color: #e9e9fb;
+  color: #1f1c2c;
+}
+.score-container::after, .best-container::after, .winningTileValueDiv::after, .increaseDiv::after {
+  color: #9898e6;
+}
+#upgrades, #pointUpgrades {
+  background: red;
+  color: white;
+}

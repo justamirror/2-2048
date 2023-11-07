@@ -6,9 +6,9 @@ const colors = ['green', 'blue', 'yellow', 'white']; // Add more colors if neede
 
 let currentIndex = 0;
 
-setInterval(() => {
+let int = setInterval(() => {
   titleElem.style.color = colors[currentIndex];
   currentIndex = (currentIndex + 1) % colors.length;
 }, 700); // Change the duration (in milliseconds) to adjust the speed of cycling
 
-titleElem.style.color = 'white'
+titleElem.style.color = 'white';

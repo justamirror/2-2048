@@ -1,4 +1,5 @@
 (function(){
+  if (localStorage.theme === 'none') return;
   let now = Date.now();
   function normalize(date) {
     let conversion = {

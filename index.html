@@ -6,7 +6,8 @@
   <title>2^2048</title>
 
   <link href="style/main.css" rel="stylesheet" type="text/css">
-  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="shortcut icon" href="favicon.png">
+  <link rel="icon" href="favicon.png" type="image/gif" sizes="16x16">
   <link rel="apple-touch-icon" href="meta/apple-touch-icon.png">
   <link rel="apple-touch-startup-image" href="meta/apple-touch-startup-image-640x1096.png"
     media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"> <!-- iPhone 5+ -->
@@ -29,6 +30,16 @@
   <div id='beta' style="display:none;">Beta version -- There may be bugs -- <a href="https://justamirror.github.io/2-2048/">Click here</a> if you are not fine with that fact.</div>
   <a href="./whatsNew/" id='whatsnew'>What's new!</a>
   <a href="./saveMenu/" id='savemanage'>Go to save manager.</a>
+  <div id="themeSelectorDiv">
+    Theme:
+    <select id="themeSelector">
+      <option value="">Auto</option>
+      <option value="none">Plain</option>
+      <option value="christmas">Christmas</option>
+      <option value="halloween">Halloween</option>
+    </select>
+  </div>
+  <script src="js/theme_selector.js"></script>
   <div class="container">
     <div class="heading">
       <h1 class="title">2<sup id="winningTile">2048</sup></h1>
